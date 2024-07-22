@@ -189,5 +189,12 @@
                             }
                         };
                     }
+                    function ratings({ rate, count }) {
+                        return {
+                            yellowStars: Array(Math.floor(rate)).fill(0),
+                            blankStars: Array(5 - Math.floor(rate)).fill(0),
+                        }
+                    }
+                </script>
 
-</html >
+</html>
