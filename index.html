@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<bodyx-data="shop">
+<body x-data="shop">
     <div>
         <!-- Navigation and Layout -->
         <header class="sticky z-50 top-0" x-data="{ open: false }">
@@ -131,6 +131,7 @@
                     </select>
                 </div>
 
+
                 <!-- Product Card -->
                 <div x-data="shop()" x-init="init()">
                     <div
@@ -208,9 +209,6 @@
         </main>
     </div>
 
-
-    </body>
-
     <!-- Alpine.js Shop Component -->
     <script>
         function filterComponent() {
@@ -267,6 +265,7 @@
                 }
             };
         }
+
         function ratings({ rate, count }) {
             return {
                 yellowStars: Array(Math.floor(rate)).fill(0),
@@ -274,5 +273,6 @@
             }
         }
     </script>
+</body>
 
 </html>
