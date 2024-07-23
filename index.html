@@ -179,17 +179,18 @@
                                 <button @click="addToCart(product)" class="bg-blue-500 text-white px-4 py-2 rounded">
                                     Add To Cart
                                 </button>
-                                <button x-data="showModal(product)" @click="showModal= true">View</button>
+                                <button x-data="{ showModal: false, selectedProduct: {}, loading: false, error: null }"
+                                    @click="showModal = true; showModal(product)">View</button>
                             </div>
                         </div>
                     </template>
                 </div>
 
                 <!-- Product Modal -->
-                <div x-show="showModal"
+                <div x-show="showModal" aria-labelledby="modal-title" aria-modal="true" role="dialog"
                     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div class="bg-white p-6 rounded-lg max-w-md w-full relative">
-                        <button @click="modalOpen = false"
+                        <button @click="closeModal" aria-label="Close modal"
                             class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="2" stroke="currentColor">
