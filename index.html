@@ -138,7 +138,7 @@
                 <!-- Product Card -->
                 <div x-data="shop()" x-init="init()" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <template x-for="product in sortedProducts" :key="product.id">
-                        <button x-data="{ 'showModal': false }" @click="showModal = true"
+                        <div
                             class="product-card bg-white p-6 border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <img :src="product.image" alt="Product Image"
                                 class="object-contain h-48 mt-3 cursor-pointer" @click="showModal(product)">
@@ -179,13 +179,14 @@
                                 <button @click="addToCart(product)" class="bg-blue-500 text-white px-4 py-2 rounded">
                                     Add To Cart
                                 </button>
+                                <button x-data="showModal(product)" @click="showModal= true">View</button>
                             </div>
-                        </button>
+                        </div>
                     </template>
                 </div>
 
                 <!-- Product Modal -->
-                <div x-show="modalOpen" @click.away="modalOpen = false"
+                <div x-show="showModal"
                     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div class="bg-white p-6 rounded-lg max-w-md w-full relative">
                         <button @click="modalOpen = false"
@@ -242,7 +243,7 @@
                 cart: [],
                 cartOpen: false,
                 dropdownOpen: false,
-                modalOpen: false,
+                showModal: false,
                 selectedProduct: {},
 
                 async init() {
@@ -304,8 +305,21 @@
                 },
 
                 showModal(product) {
-                    this.selectedProduct = product;
-                    this.modalOpen = true;
+                    this.loading = true;
+                    fetch(`https://fakestoreapi.com/products/${product.id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.selectedProduct = data;
+                            this.loading = false;
+                            this.showModal = true;
+                        })
+                        .catch(error => {
+                            this.error = error;
+                            this.loading = false;
+                        });
+                },
+                closeModal() {
+                    this.showModal = false;
                 },
 
                 addToCart(product) {
