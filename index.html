@@ -138,7 +138,7 @@
                 <!-- Product Card -->
                 <div x-data="shop()" x-init="init()" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <template x-for="product in sortedProducts" :key="product.id">
-                        <div
+                        <button x-data="{ 'showModal': false }" @click="showModal = true"
                             class="product-card bg-white p-6 border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <img :src="product.image" alt="Product Image"
                                 class="object-contain h-48 mt-3 cursor-pointer" @click="showModal(product)">
@@ -180,7 +180,7 @@
                                     Add To Cart
                                 </button>
                             </div>
-                        </div>
+                        </button>
                     </template>
                 </div>
 
